@@ -5,6 +5,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Random; //Random numbers.
 
 /** Handles requests sent to the /hello URL. Try running a server and navigating to /hello! */
 @WebServlet("/hello")
@@ -13,6 +14,17 @@ public class HelloWorldServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html;");
-    response.getWriter().println("<h1>Hello world!</h1>");
+
+    Random rand = new Random(); //Instance of Random class.
+
+    String[] responses = {"Hello world!", "Hello AlejandroSparza!",
+        "I love Google!", "Hi SPS!", "Greetings from Mexico!",
+        "I'm studying at Tec de Monterrey!"}; //Random strings.
+    
+    int index = rand.nextInt(responses.length); //Random number from 0 to
+        //(responses.length - 1), both inclusive.
+
+    response.getWriter().println("<h1>" + responses[index] + "</h1>"); //Adding
+        //a random response.
   }
 }
