@@ -24,7 +24,7 @@ public class HelloWorldServlet extends HttpServlet {
     int index = rand.nextInt(responses.length); //Random number from 0 to
         //(responses.length - 1), both inclusive.
 
-    response.getWriter().println("<h1>" + responses[index] + "</h1>"); //Adding
+    response.getWriter().println(responses[index]); //Adding
         //a random response.
   }
 }
