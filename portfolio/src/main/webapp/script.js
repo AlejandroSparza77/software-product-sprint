@@ -14,11 +14,33 @@
 
 /** Fetches a hardcoded string and adds it to the page. **/
 async function showServerString() {
+    //Send request:
     const responseFromServer = await fetch('/hello');
-    const textFromResponse = await responseFromServer.text();
-  
+    
+    //const textFromResponse = await responseFromServer.text();
+    
+    // Parse the response as JSON.
+    const textFromResponse = await responseFromServer.json();
+
     const stringContainer = document.getElementById('string-container');
-    stringContainer.innerText = textFromResponse;
+    
+    const jsonSize = Object.keys(textFromResponse).length;
+    var randomNumber = Math.floor(Math.random() * jsonSize); //Random number between
+        //0 and 2 (inclusive).
+    var counter = 0; //Index to get to the random number.
+    var response = ""; //Random string of response.
+    var randomKey = Object.keys(textFromResponse)[randomNumber];
+
+    response = textFromResponse[randomKey];
+
+    // Now we can reference the fields:
+    for (const i in textFromResponse) {
+        console.log(textFromResponse[i]);
+    }
+
+    //stringContainer.innerText = textFromResponse;
+    stringContainer.innerText = response;
+
 }
 
 /**
