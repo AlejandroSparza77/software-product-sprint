@@ -100,7 +100,40 @@
             <li>What I enjoy photographing</li>
         </a>
         <br>
-      </ul> 
+      </ul>
+      </br>
+      <h2>Contact me</h2> 
+    <form action="/form-handler" method="POST">
+        <p>Enter your first name here:</p>
+        <textarea name="first-name">Your first name</textarea>
+        <br/><br/>
+
+        <p>Enter your last name here:</p>
+        <textarea name="last-name">Your last name</textarea>
+        <br/><br/>
+
+        <p>Are you here for?</p>
+        <label>
+          <input type="checkbox" name="talent" value="true">
+          Your talent
+        </label>
+        <br/>
+        <label>
+          <input type="checkbox" name="curiosity" value="true">
+          Your curiosity
+        </label>
+        <br/><br/>
+
+        <p>What is your specialization?:</p>
+        <textarea name="specialization">Your specialization</textarea>
+        <br/><br/>
+
+        <p>Now tell me your best joke:</p>
+        <textarea name="joke">Make me laugh</textarea>
+        <br/><br/>
+
+        <input type="submit" />
+    </form>
     </div>
   </body>
 </html>
