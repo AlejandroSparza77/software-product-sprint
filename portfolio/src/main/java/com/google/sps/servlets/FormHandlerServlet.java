@@ -6,6 +6,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sound.sampled.SourceDataLine;
+import com.google.cloud.datastore.Datastore;
+import com.google.cloud.datastore.DatastoreOptions;
+import com.google.cloud.datastore.Entity;
+import com.google.cloud.datastore.FullEntity;
+import com.google.cloud.datastore.KeyFactory;
 
 @WebServlet("/form-handler")
 public class FormHandlerServlet extends HttpServlet {
@@ -27,9 +32,24 @@ public class FormHandlerServlet extends HttpServlet {
     System.out.println("Your specialization is: " + specialization);
     System.out.println("Your best joke is: " + joke);
 
+    //Datastore:
+    Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+    KeyFactory keyFactory = datastore.newKeyFactory().setKind("Task");
+    FullEntity taskEntity =
+        Entity.newBuilder(keyFactory.newKey())
+            .set("firstName", firstName)
+            .set("lastName", lastName)
+            .set("myTalent", myTalent)
+            .set("myCuriosity", myCuriosity)
+            .set("specialization", specialization)
+            .set("joke", joke)
+            .build();
+    datastore.put(taskEntity);
+
     //Redirect the user:
     response.sendRedirect("https://sesparzagonzalez-sps-summer22.appspot.com/");
 
+    //Logs:
     if (myTalent == true && myCuriosity == true) {
         System.out.println("You are here for: your curiosity and your talent.");
         // Write the value to the response so the user can see it.
