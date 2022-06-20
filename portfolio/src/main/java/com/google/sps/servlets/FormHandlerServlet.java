@@ -31,8 +31,8 @@ public class FormHandlerServlet extends HttpServlet {
     // Get the value entered in the form.
     String firstName = request.getParameter("first-name");
     String lastName = request.getParameter("last-name");
-    boolean myTalent = Boolean.parseBoolean(getParameter(request, "talent", "false"));
-    boolean myCuriosity = Boolean.parseBoolean(getParameter(request, "curiosity", "false"));
+    boolean yourTalent = Boolean.parseBoolean(getParameter(request, "talent", "false"));
+    boolean yourCuriosity = Boolean.parseBoolean(getParameter(request, "curiosity", "false"));
     String specialization = request.getParameter("specialization");
     String joke = request.getParameter("joke");
     long timestamp = System.currentTimeMillis();
@@ -51,8 +51,8 @@ public class FormHandlerServlet extends HttpServlet {
         Entity.newBuilder(keyFactory.newKey())
             .set("firstName", firstName)
             .set("lastName", lastName)
-            .set("myTalent", myTalent)
-            .set("myCuriosity", myCuriosity)
+            .set("yourTalent", yourTalent)
+            .set("yourCuriosity", yourCuriosity)
             .set("specialization", specialization)
             .set("joke", joke)
             .set("timestamp", timestamp)
@@ -68,15 +68,15 @@ public class FormHandlerServlet extends HttpServlet {
       Entity entity = results.next();
 
       long id = entity.getKey().getId();
-      firstName = entity.getString("firstName");
-      lastName = entity.getString("lastName");
-      myTalent = entity.getBoolean("myTalent");
-      myCuriosity = entity.getBoolean("myCuriosity");
+      //firstName = entity.getString("firstName");
+      //lastName = entity.getString("lastName");
+      yourTalent = entity.getBoolean("yourTalent");
+      yourCuriosity = entity.getBoolean("yourCuriosity");
       specialization = entity.getString("specialization");
       joke = entity.getString("joke");
       timestamp = entity.getLong("timestamp");
 
-      Task task = new Task(id, firstName, lastName, myTalent, myCuriosity,
+      Task task = new Task(id, yourTalent, yourCuriosity,
         specialization, joke, timestamp);
       tasks.add(task);
     }
@@ -87,38 +87,44 @@ public class FormHandlerServlet extends HttpServlet {
     //response.sendRedirect("https://sesparzagonzalez-sps-summer22.appspot.com/");
 
     //Responses:
-    /*
-    if (myTalent == true && myCuriosity == true) {
+
+    if (yourTalent == true && yourCuriosity == true) {
         System.out.println("You are here for: your curiosity and your talent.");
         // Write the value to the response so the user can see it.
+        /*
         response.getWriter().println("Your name is: " + firstName + " "
             + lastName + ", your specialization is: " + specialization + ", "
             + "you are here for your curiosity and your talent, and actually "
             + "you are funny. Now go back to the previous page.");
-  
+        */
     }
-    else if (myTalent == true && myCuriosity == false) {
+    else if (yourTalent == true && yourCuriosity == false) {
         System.out.println("You are here for: your talent.");
+        /*
         response.getWriter().println("Your name is: " + firstName + " "
         + lastName + ", your specialization is: " + specialization + ", you "
         + "are here for your talent, and actually you are funny. Now go back "
         + "to the previous page.");
+        */
     }
-    else if (myTalent == false && myCuriosity == true) {
+    else if (yourTalent == false && yourCuriosity == true) {
         System.out.println("You are here for: your curiosity.");
+        /*
         response.getWriter().println("Your name is: " + firstName + " "
         + lastName + ", your specialization is: " + specialization + ", you "
         + "are here for your curiosity, and actually you are funny. Now go "
         + "back to the previous page.");
+        */
     }
     else{
         System.out.println("Why are you here?");
+        /*
         response.getWriter().println("Your name is: " + firstName + " "
         + lastName + ", your specialization is: " + specialization + ", I do "
         + "not know why you are here, but actually you are funny. Now go back "
         + "to the previous page.");
+        */
     }
-    */
 
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(tasks));
