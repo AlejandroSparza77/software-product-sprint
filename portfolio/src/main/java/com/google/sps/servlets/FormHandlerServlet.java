@@ -11,6 +11,16 @@ import com.google.cloud.datastore.DatastoreOptions;
 import com.google.cloud.datastore.Entity;
 import com.google.cloud.datastore.FullEntity;
 import com.google.cloud.datastore.KeyFactory;
+import com.google.cloud.datastore.Query;
+import com.google.cloud.datastore.QueryResults;
+import com.google.cloud.datastore.StructuredQuery.OrderBy;
+import com.google.gson.Gson;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.IOException;
+import com.Task;
+//import org.jsoup.Jsoup;
+//import org.jsoup.safety.Whitelist;
 
 @WebServlet("/form-handler")
 public class FormHandlerServlet extends HttpServlet {
@@ -25,12 +35,14 @@ public class FormHandlerServlet extends HttpServlet {
     boolean myCuriosity = Boolean.parseBoolean(getParameter(request, "curiosity", "false"));
     String specialization = request.getParameter("specialization");
     String joke = request.getParameter("joke");
+    long timestamp = System.currentTimeMillis();
 
     // Print the value so you can see it in the server logs.
     System.out.println("Your first name is: " + firstName);
     System.out.println("Your last name is: " + lastName);
     System.out.println("Your specialization is: " + specialization);
     System.out.println("Your best joke is: " + joke);
+    System.out.println("Your timestamp is: " + timestamp);
 
     //Datastore:
     Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
@@ -43,13 +55,39 @@ public class FormHandlerServlet extends HttpServlet {
             .set("myCuriosity", myCuriosity)
             .set("specialization", specialization)
             .set("joke", joke)
+            .set("timestamp", timestamp)
             .build();
     datastore.put(taskEntity);
 
-    //Redirect the user:
-    response.sendRedirect("https://sesparzagonzalez-sps-summer22.appspot.com/");
+    Query<Entity> query =
+        Query.newEntityQueryBuilder().setKind("Task").setOrderBy(OrderBy.desc("timestamp")).build();
+    QueryResults<Entity> results = datastore.run(query);
+    
+    List<Task> tasks = new ArrayList<>();
+    while (results.hasNext()) {
+      Entity entity = results.next();
 
-    //Logs:
+      long id = entity.getKey().getId();
+      firstName = entity.getString("firstName");
+      lastName = entity.getString("lastName");
+      myTalent = entity.getBoolean("myTalent");
+      myCuriosity = entity.getBoolean("myCuriosity");
+      specialization = entity.getString("specialization");
+      joke = entity.getString("joke");
+      timestamp = entity.getLong("timestamp");
+
+      Task task = new Task(id, firstName, lastName, myTalent, myCuriosity,
+        specialization, joke, timestamp);
+      tasks.add(task);
+    }
+
+    Gson gson = new Gson();
+
+    //Redirect the user:
+    //response.sendRedirect("https://sesparzagonzalez-sps-summer22.appspot.com/");
+
+    //Responses:
+    /*
     if (myTalent == true && myCuriosity == true) {
         System.out.println("You are here for: your curiosity and your talent.");
         // Write the value to the response so the user can see it.
@@ -80,6 +118,10 @@ public class FormHandlerServlet extends HttpServlet {
         + "not know why you are here, but actually you are funny. Now go back "
         + "to the previous page.");
     }
+    */
+
+    response.setContentType("application/json;");
+    response.getWriter().println(gson.toJson(tasks));
 
   }
 
