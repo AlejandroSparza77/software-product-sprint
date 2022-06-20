@@ -5,15 +5,135 @@
     <title>My Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <style>
+        h1 {text-align: center;}
+        p {text-align: justify;}
+    </style>
   </head>
   <body>
+    <body style="background-color:powderblue;">
     <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click <a href="/hello">here</a> to see content created by server code.</p>
+      <h1>AlejandroSparza's Portfolio</h1>
+      <br>
+      <img src="/images/A01625430.jpg" class="center"/>
+      <br><br>
+      <h2>My Background</h2>
+      <p>
+          Hello! My name is Sergio Alejandro Esparza González. I am from Mexico
+          and I am currently studying a B.S. in Computer Science and Technology
+          at ITESM.
+      </p>
+      <p>
+          I was born in Aguascalientes, Aguascalientes, Mexico on 09/21 twenty
+          years ago.
+      </p> 
+      <p>
+          I learned to use a computer since I was a child. My dad had a Windows
+          98 PC that I was able to learn on (a bit old even for those days).
+      </p>
+      <p>
+        Since I was a child I was interested in mathematics, I had more
+        advanced knowledge than my schoolmates in it, of course I also had
+        computers, because unfortunately the teachers did not even let us use
+        them to do homework, until I entered high school (and only little by 
+        little).
+      </p>
+      <p>
+        I've played video games since I was little, I went from having an NES
+        (also my dad's) to having a Wii (now mine), and then I had an Xbox One,
+        but I've always played on PC anyway.
+      </p>
+      <p>
+        In middle school, my grades started to drop, because I was only focused
+        on learning what I liked, so I started to focus almost entirely on
+        school until I finished high school. This brought me many advantages,
+        such as being the highest average of my generation, but it brought me
+        disadvantages, such as not learning those things that I was passionate
+        about (for example, I started programming shortly before entering
+        university). Currently, I have tried to find a balance between the
+        things I love and school, as proof of that I am here.
+      </p>
+      <p>
+        I also really like music, so much so that I play piano, guitar,
+        recorder and I also sing; Similarly, I consider sports an important
+        part of my life, since throughout my life I have practiced soccer,
+        tae-kwon-do, swimming and basketball, in addition to training
+        calisthenics.
+      </p>
+      <br>
+      <h2>Projects I Have Worked On</h2>
+      <li>ITESM academic excellence mentor.</li>
+      <li>Network connection of a Retail Store with Velatia.</li>
+      <li>Design of a traffic simulator with AppWorld.</li>
+      <li>Digital animator with ANSPAC.</li>
+      <li>Management of the MAESTEC advisory database.</li>
+      <li>Google SPS participant.</li>
+      <br>
+      <h2>My Profiles</h2>
+        <a href="https://www.linkedin.com/in/alejandrosparza" 
+        target="_blank"><img src="/images/LinkedIn.png" /></a>
+        <a href="https://github.com/AlejandroSparza77" 
+        target="_blank"><img src="/images/GitHub.png" /></a>
+      <p>Click <a href="/hello" target="_blank">here</a> to see a list of
+        messages created by server code.</p>
+      <p>Or click this button to show a random message of that list: </p>
+      <button onclick="showServerString();">
+      Random string
+      </button>
+      </br>
+      <div id="string-container"></div>
       <p>Click here to get a random message:</p>
       <button onclick="addRandomGreeting()">Hello</button>
       <div id="greeting-container"></div>
+      <br>
+      <h2>More about me</h2>
+      <ul>
+        <a href="/hiddenTalent.html" target="_blank">
+          <li>A hidden talent</li>
+        </a>
+        <br>
+        <a href="/myGallery.html" target="_blank">
+            <li>My Gallery</li>
+        </a>
+        <br>
+        <a href="/photographing.html" target="_blank">
+            <li>What I enjoy photographing</li>
+        </a>
+        <br>
+      </ul>
+      </br>
+      <h2>Contact me</h2> 
+    <form action="/form-handler" method="POST">
+        <p>Enter your first name here:</p>
+        <textarea name="first-name">Your first name</textarea>
+        <br/><br/>
+
+        <p>Enter your last name here:</p>
+        <textarea name="last-name">Your last name</textarea>
+        <br/><br/>
+
+        <p>Are you here for?</p>
+        <label>
+          <input type="checkbox" name="talent" value="true">
+          Your talent
+        </label>
+        <br/>
+        <label>
+          <input type="checkbox" name="curiosity" value="true">
+          Your curiosity
+        </label>
+        <br/><br/>
+
+        <p>What is your specialization?:</p>
+        <textarea name="specialization">Your specialization</textarea>
+        <br/><br/>
+
+        <p>Now tell me your best joke:</p>
+        <textarea name="joke">Make me laugh</textarea>
+        <br/><br/>
+
+        <input type="submit" />
+    </form>
     </div>
   </body>
 </html>
